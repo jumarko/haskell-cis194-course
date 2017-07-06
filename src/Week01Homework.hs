@@ -38,3 +38,16 @@ sumDigits (x:ys) = (mod x 10) + (div x 10) + (sumDigits ys)
 -- could be a valid credit card number
 validate :: Integer -> Bool
 validate x = (mod (sumDigits (doubleEveryOther (toDigits x))) 10) == 0
+
+
+
+-- Exercise 5: The Towers of Hanoi
+type Peg = String
+type Move = (Peg, Peg)
+-- Given the number of discs and names for the three pegs
+-- returns a list of moves to be performed to move the stack
+-- from the first peg to the second
+-- Example: hanoi 2 "a" "b" "c" == [("a", "c"), ("a", "b"), ("c", "b")]
+hanoi :: Integer -> Peg -> Peg -> Peg -> [Move]
+hanoi 1 a b c = [(a, b)]
+hanoi n a b c = (hanoi (n-1) a c b) ++ (a,b) : (hanoi (n-1) c b a)
